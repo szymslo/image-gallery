@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+    <link href="/css/style.css" rel="stylesheet" type="text/css">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <div class ="box">
+            <h3>Register</h3>
+            <form action="/user/register" method="POST">
+                <div class="input_wrapper">
+                    <input type="text" id="name" name="name" placeholder="Name" required />
+                    <input type="text" id="email" name="email" placeholder="Email" required />
+                    <input type="text" id="password" name="password" placeholder="Password" required />
+                    <input type="text" id="con_password" name="con_password" placeholder="Confirm Password" required />  
+                    <div class="radio_group">
+                        <input type="radio" id="admin" name="user_type" value="admin">
+                        <label for="admin">Administrator</label><br>
+                        <input type="radio" id="normal" name="user_type" value="normal">
+                        <label for="admin">Client</label><br>
+                    </div>
+                    <input class="input_button" type="submit" value="Register" />
+                    <a href="/user/login">Already have an account? Click here to login</a>
+                </div>
+            </form>      
+        </div>
+    </div>
+</body>
+</html>

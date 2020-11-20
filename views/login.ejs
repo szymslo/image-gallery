@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link href="/css/style.css" rel="stylesheet" type="text/css">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <div class ="box">
+            <h3>Login</h3>
+            <form action="/user/login" method="POST">
+                <div class="input_wrapper">
+                    <input type="text" id="email" name="email" placeholder="Email" required />
+                    <input type="text" id="password" name="password" placeholder="Password" required />
+                    <input class="input_button" type="submit" value="Login" />
+                    <a href="/user/register">Don't have an account? Click here to register</a>
+                </div> 
+            </form>
+        </div>
+    </div>
+</body>
+</html>

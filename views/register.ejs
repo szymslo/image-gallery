@@ -12,16 +12,22 @@
     <div class="container">
         <div class ="box">
             <h3>Register</h3>
+            <div class="error">
+                <% if(typeof errors != 'undefined') { %>
+                    <% errors.forEach(err => { %>
+                        <p><%= err %></p>
+                    <% }) %> <% } %>
+                    </div>
             <form action="/user/register" method="POST">
                 <div class="input_wrapper">
-                    <input type="text" id="name" name="name" placeholder="Name" required />
-                    <input type="text" id="email" name="email" placeholder="Email" required />
-                    <input type="text" id="password" name="password" placeholder="Password" required />
-                    <input type="text" id="con_password" name="con_password" placeholder="Confirm Password" required />  
+                    <input type="text" pattern="[a-zA-Z0-9]+" id="name" name="name" placeholder="Name" required />
+                    <input type="email" id="email" name="email" placeholder="Email" required />
+                    <input type="password" id="password" name="password" placeholder="Password" required />
+                    <input type="password" id="con_password" name="conPassword" placeholder="Confirm Password" required />  
                     <div class="radio_group">
-                        <input type="radio" id="admin" name="user_type" value="admin">
+                        <input type="radio" id="admin" name="userType" value="admin">
                         <label for="admin">Administrator</label><br>
-                        <input type="radio" id="normal" name="user_type" value="normal">
+                        <input type="radio" id="normal" name="userType" value="normal" checked="true">
                         <label for="admin">Client</label><br>
                     </div>
                     <input class="input_button" type="submit" value="Register" />

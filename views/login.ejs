@@ -14,8 +14,8 @@
             <h3>Login</h3>
             <form action="/user/login" method="POST">
                 <div class="input_wrapper">
-                    <input type="text" id="email" name="email" placeholder="Email" required />
-                    <input type="text" id="password" name="password" placeholder="Password" required />
+                    <input type="text" pattern="[a-zA-Z0-9]+" id="email" name="email" placeholder="Email" required />
+                    <input type="password" id="password" name="password" placeholder="Password" required />
                     <input class="input_button" type="submit" value="Login" />
                     <a href="/user/register">Don't have an account? Click here to register</a>
                 </div> 

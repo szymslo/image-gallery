@@ -60,6 +60,10 @@ input {
     padding: .5rem;
 }
 
+.error {
+    color: red;
+}
+
 #admin {
     margin: 0 .3rem 0 0;
 }

@@ -12,12 +12,22 @@
     <div class="container">
         <div class ="box">
             <h3>Login</h3>
-            <form action="/user/login" method="POST">
+            <div class="success">
+                <% if(messages.succes_msg) { %>
+                    <p><%= messages.succes_msg %></p>
+                <% } %>
+            </div>
+            <div class="error">
+                <% if(messages.error) { %>
+                    <p><%= messages.error %></p>
+                <% } %>
+            </div>
+            <form action="/login" method="POST">
                 <div class="input_wrapper">
-                    <input type="text" pattern="[a-zA-Z0-9]+" id="email" name="email" placeholder="Email" required />
+                    <input type="email" id="email" name="email" placeholder="Email" required />
                     <input type="password" id="password" name="password" placeholder="Password" required />
                     <input class="input_button" type="submit" value="Login" />
-                    <a href="/user/register">Don't have an account? Click here to register</a>
+                    <a href="/register">Don't have an account? Click here to register</a>
                 </div> 
             </form>
         </div>

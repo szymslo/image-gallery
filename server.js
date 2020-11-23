@@ -5,12 +5,15 @@ const session = require('express-session');
 const flash = require('express-flash');
 const passport = require('passport');
 const initializePassport = require('./passport-config')
+const fileUpload = require('express-fileupload');
 
 initializePassport(passport);
 
 const PORT = process.env.PORT || 4000;
 
 app.set('view engine', 'ejs');
+
+app.use(fileUpload());
 
 app.use(express.static('public'));
 app.use(express.urlencoded({ extended:false }));

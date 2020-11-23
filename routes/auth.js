@@ -2,6 +2,7 @@ const router = require('express').Router();
 const pool = require('../db');
 const bcrypt = require('bcrypt');
 const passport = require('passport');
+const { encode } = require('base64-arraybuffer');
 
 const checkName = input => {
     const regex = new RegExp("^[a-zA-Z0-9]+$");
@@ -50,8 +51,23 @@ router.get('/register', checkNotAuth, (req,res) => {
     res.render('register');
 });
 
-router.get('/dashboard', checkAuth, (req,res) => {
-    res.render('dashboard', {name: req.user.user_name, role: req.user.user_type});
+router.get('/dashboard', checkAuth, async (req,res) => {
+
+    const uid = req.user.user_id;
+    let images;
+
+    try {
+        const images = await pool.query("SELECT image_name, image_data FROM images WHERE user_id = $1", [uid]);
+        if(images.rows.length === 0) {
+            images = false;
+            throw 'No images :('
+        }
+
+        res.render('dashboard', {name: req.user.user_name, role: req.user.user_type, content: encode(images.rows[0].image_data)});
+    }
+    catch(err) {
+        res.render('dashboard', {name: req.user.user_name, role: req.user.user_type, content: err});
+    }
 });
 
 router.post('/register', async (req,res) => {
@@ -71,7 +87,7 @@ router.post('/register', async (req,res) => {
 
         const hashedPassword = await bcrypt.hash(password,10);
 
-        const newUser = await pool.query(
+        await pool.query(
             `INSERT INTO users (user_name, user_email, user_password, user_type) 
             VALUES ($1, $2, $3, $4)
             RETURNING user_id, user_password`, [name, email, hashedPassword, userType])
@@ -97,6 +113,34 @@ router.post(
     })
 );
 
+router.post('/upload', async (req,res) => {
+    if(!req.files) {
+        return res.status(400).send('No file uploaded');
+    }
+    const { email } = req.body;
+    const image = req.files.img;
+
+    try {
+        const findUser = await pool.query("SELECT user_id FROM users WHERE user_email = $1", [email])
+        if(findUser.rows.length === 0) {
+            throw 'No user with that email';
+        }
+
+        uid = findUser.rows[0].user_id;
+        console.log(uid);
+
+        await pool.query(
+            `INSERT INTO images (image_name, image_data, user_id) 
+            VALUES ($1, $2, $3)`, [image.name, image.data, uid]);
+    
+        req.flash('succes_msg', 'Image succesfully uploaded');
+        res.redirect('dashboard');
+    }
+    catch(err) {
+        return res.status(400).send("Database error: " + err)
+    } 
+})
+
 function checkAuth (req, res, next) {
     if(req.isAuthenticated()) {
         return next();
@@ -112,6 +156,5 @@ function checkNotAuth (req, res, next) {
     next();
 
 }
-
 
 module.exports = router;

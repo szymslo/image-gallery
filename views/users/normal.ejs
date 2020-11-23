@@ -3,23 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Gallery</title>
     <link href="/css/style.css" rel="stylesheet" type="text/css">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap" rel="stylesheet">
-    <title>Dashboard</title>
 </head>
 <body>
-    <div class="container">
-        <h1>Hello <%= name %></h1>
-        <% 
-            if (role === 'admin') { %>
-                <%- include('./users/admin.ejs') %>
-            <% } 
-        else { %>
-                <%- include('./users/normal.ejs') %>
-            <% }
-        %>
-        <a href="/logout" class="btn_logout">Logout</a>
+    <div class="box">
+        <img src="data:image/png;base64,<%= content %>" alt="image">
     </div>
 </body>
 </html>

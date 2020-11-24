@@ -131,3 +131,11 @@ a.btn {
 .hello {
     margin-top: 2rem;
 }
+
+#admin {
+    margin: 0 .3rem 0 0;
+}
+
+#normal {
+    margin: 0 .3rem 0 1rem;
+}

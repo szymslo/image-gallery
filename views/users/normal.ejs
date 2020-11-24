@@ -9,8 +9,16 @@
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div class="box">
-        <img src="data:image/png;base64,<%= content %>" alt="image">
+    <div class="hello">
+        <h1>Hello <%= name %></h1>
     </div>
+        <ul>
+            <% if(typeof content != 'undefined') { %> <% content.forEach(pic => { %>
+                <li><img src="data:image/png;base64,<%= pic %>" alt="image"></li>
+            <% }) %> <% }
+            else{ %>  
+                <p>You have no pictures</p>
+             <% } %>
+          </ul>
 </body>
 </html>

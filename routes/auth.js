@@ -54,7 +54,7 @@ router.get('/register', checkNotAuth, (req,res) => {
 router.get('/dashboard', checkAuth, async (req,res) => {
 
     const uid = req.user.user_id;
-    let images;
+    let gallery = [];
 
     try {
         const images = await pool.query("SELECT image_name, image_data FROM images WHERE user_id = $1", [uid]);
@@ -63,10 +63,14 @@ router.get('/dashboard', checkAuth, async (req,res) => {
             throw 'No images :('
         }
 
-        res.render('dashboard', {name: req.user.user_name, role: req.user.user_type, content: encode(images.rows[0].image_data)});
+        for(let i=0; i<images.rows.length; i++) {
+            gallery.push(encode(images.rows[i].image_data));
+        }
+
+        res.render('dashboard', {name: req.user.user_name, role: req.user.user_type, content: gallery});
     }
     catch(err) {
-        res.render('dashboard', {name: req.user.user_name, role: req.user.user_type, content: err});
+        res.render('dashboard', {name: req.user.user_name, role: req.user.user_type});
     }
 });
 
@@ -127,7 +131,6 @@ router.post('/upload', async (req,res) => {
         }
 
         uid = findUser.rows[0].user_id;
-        console.log(uid);
 
         await pool.query(
             `INSERT INTO images (image_name, image_data, user_id) 

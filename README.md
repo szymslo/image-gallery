@@ -22,6 +22,5 @@ Create .env file in the project directory with your database credentials. It sho
 *SESSION_SECRET=*
 
 ## To run this app
-#### `rm package-lock.json`
 #### `npm install`
 #### `npm start / yarn start`
